@@ -144,3 +144,45 @@ function fibsRec(n) {
   // Return the full sequence
   return array;
 }
+
+// ##################################################
+// Merge Sort
+// ##################################################
+
+function mergeSort(array) {
+  // If array has 1 or 0 elements, return as it is already sorted
+  if (array.length <= 1) {
+    return array;
+  }
+
+  // Find the middle of the array
+  const middle = Math.floor(array.length / 2);
+
+  // Split the array into two halves
+  const left = array.slice(0, middle);
+  const right = array.slice(middle);
+
+  // Recursively sort and merge halves together
+  return merge(mergeSort(left), mergeSort(right));
+}
+
+function merge(left, right) {
+  let subArray = [];
+  let leftIndex = 0;
+  let rightIndex = 0;
+
+  // Compare elements from the left and right arrays and push smaller
+  // number into the subArray
+  while (leftIndex < left.length && rightIndex < right.length) {
+    if (left[leftIndex] < right[rightIndex]) {
+      subArray.push(left[leftIndex]);
+      leftIndex++; // Move to the next element in the left array
+    } else {
+      subArray.push(right[rightIndex]);
+      rightIndex++; // Move to the next element in the right array
+    }
+  }
+
+  // Concatenate the remaining numbers as they are sorted
+  return subArray.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
+}
